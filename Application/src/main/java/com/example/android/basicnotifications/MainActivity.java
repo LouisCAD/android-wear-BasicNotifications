@@ -1,13 +1,13 @@
 package com.example.android.basicnotifications;
 
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 
 /**
@@ -86,6 +86,12 @@ public class MainActivity extends Activity {
         builder.setContentText("Time to learn about notifications!");
         builder.setSubText("Tap to view documentation about notifications.");
 
+        /**
+         * Adds an action with a vector drawable icon
+         */
+        PendingIntent dogfoodPendingIntent = PendingIntent.getActivity(this, 1, getIntent(), 0);
+        builder.addAction(R.drawable.ic_pets_white_24dp, "Get back!", dogfoodPendingIntent);
+
         // END_INCLUDE (build_notification)
 
         // BEGIN_INCLUDE(send_notification)
@@ -93,8 +99,7 @@ public class MainActivity extends Activity {
          * Send the notification. This will immediately display the notification icon in the
          * notification bar.
          */
-        NotificationManager notificationManager = (NotificationManager) getSystemService(
-                NOTIFICATION_SERVICE);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(NOTIFICATION_ID, builder.build());
         // END_INCLUDE(send_notification)
     }
